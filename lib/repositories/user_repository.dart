@@ -18,4 +18,19 @@ class UserRepository extends BaseRepository {
 
     return response.map((e) => User.fromJson(e)).toList();
   }
+
+  Future<User> getUser(int id) async {
+    final response =
+        await get<Map<String, dynamic>>('/users/$id').catchError((error) {
+      if (error is RepositoryException) {
+        throw error;
+      } else {
+        throw const RepositoryException();
+      }
+    });
+
+    final user = User.fromJson(response);
+
+    return user;
+  }
 }
