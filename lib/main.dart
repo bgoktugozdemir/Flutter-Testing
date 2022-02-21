@@ -19,7 +19,7 @@ void main() {
   // Handles Dart Errors
   runZonedGuarded<void>(
     () {
-      runApp(const MyApp());
+      runApp(const App());
     },
     (error, stackTrace) {
       print('Caught Dart Error');
