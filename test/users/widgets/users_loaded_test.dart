@@ -49,14 +49,20 @@ void main() {
     ];
 
     testWidgets('renders correct amount of ListTile', (tester) async {
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: UsersLoaded(
-            users: users,
-            onRefresh: () async {},
+      final key = UniqueKey();
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: UsersLoaded(
+              key: key,
+              users: users,
+              onRefresh: () async {},
+            ),
           ),
         ),
-      ));
+      );
+      expect(find.byKey(key), findsOneWidget);
       expect(find.byType(ListTile), findsNWidgets(users.length));
       final user1 = users[0];
       expect(find.widgetWithText(CircleAvatar, user1.id.toString()),

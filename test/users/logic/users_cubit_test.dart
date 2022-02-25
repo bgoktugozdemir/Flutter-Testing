@@ -52,7 +52,7 @@ void main() {
       'initial state is correct',
       () {
         // ARRANGE
-        final usersCubit = UsersCubit();
+        final usersCubit = UsersCubit(userRepository);
         // ASSERT
         expect(usersCubit.state, UsersState.initial());
       },

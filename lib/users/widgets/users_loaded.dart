@@ -23,8 +23,7 @@ class UsersLoaded extends StatelessWidget {
           return ListTile(
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => UserDetailPage(user: user),
-                // builder: (context) => UserDetailPage(userId: user.id,),
+                builder: (context) => UserDetailPage(userId: user.id),
               ),
             ),
             leading: CircleAvatar(

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_testing/core/widgets/widgets.dart';
 
 class UserDetailEmpty extends StatelessWidget {
   const UserDetailEmpty({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Icon(Icons.person, size: 64);
+    return const EmptyView(Icons.person);
   }
 }

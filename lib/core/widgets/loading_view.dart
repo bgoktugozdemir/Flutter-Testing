@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Loading extends StatelessWidget {
-  const Loading({
-    Key? key,
-    this.message = 'Loading...',
-  }) : super(key: key);
+class LoadingView extends StatelessWidget {
+  const LoadingView({Key? key, this.message = 'Loading...'}) : super(key: key);
 
   final String message;
 

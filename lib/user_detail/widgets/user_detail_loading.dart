@@ -6,6 +6,6 @@ class UserDetailLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Loading(message: 'Loading user...');
+    return const LoadingView(message: 'Loading user...');
   }
 }

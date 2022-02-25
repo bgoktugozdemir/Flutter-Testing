@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_testing/core/repositories/repositories.dart';
 import 'package:flutter_testing/users/logic/users_cubit.dart';
 import 'package:flutter_testing/users/users.dart';
 
@@ -9,7 +10,8 @@ class UsersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => UsersCubit()..getUsers(),
+      create: (context) =>
+          UsersCubit(context.read<UserRepository>())..getUsers(),
       child: const UsersView(),
     );
   }

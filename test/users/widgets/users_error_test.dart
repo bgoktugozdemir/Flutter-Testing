@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_testing/core/widgets/widgets.dart';
 import 'package:flutter_testing/users/users.dart';
 
 void main() {
   group('UsersError', () {
-    testWidgets('renders correct icon and text', (tester) async {
+    testWidgets('renders ErrorView', (tester) async {
+      final key = UniqueKey();
+
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: Scaffold(
-            body: UsersError(),
+            body: UsersError(key: key),
           ),
         ),
       );
-      expect(find.byIcon(Icons.error), findsOneWidget);
-      expect(find.text('Something went wrong!'), findsOneWidget);
+
+      expect(find.byKey(key), findsOneWidget);
+      expect(find.byType(ErrorView), findsOneWidget);
     });
   });
 }

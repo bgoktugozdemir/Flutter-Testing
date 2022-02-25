@@ -6,8 +6,8 @@ import 'package:flutter_testing/core/repositories/repositories.dart';
 part 'user_detail_state.dart';
 
 class UserDetailCubit extends Cubit<UserDetailState> {
-  UserDetailCubit([UserRepository? userRepository])
-      : _userRepository = userRepository ?? UserRepository(),
+  UserDetailCubit(UserRepository userRepository)
+      : _userRepository = userRepository,
         super(UserDetailState.initial());
 
   final UserRepository _userRepository;

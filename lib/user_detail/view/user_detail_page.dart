@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_testing/core/models/models.dart';
+import 'package:flutter_testing/core/repositories/repositories.dart';
 import 'package:flutter_testing/user_detail/user_detail.dart';
 
 class UserDetailPage extends StatelessWidget {
   const UserDetailPage({
     Key? key,
-    this.userId,
-    this.user,
-  })  : assert(userId != null || user != null),
-        super(key: key);
+    required this.userId,
+  }) : super(key: key);
 
-  final int? userId;
-  final User? user;
+  final int userId;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => UserDetailCubit(),
+      create: (context) =>
+          UserDetailCubit(context.read<UserRepository>())..getUser(userId),
       child: const UserDetailView(),
     );
   }
@@ -29,6 +27,9 @@ class UserDetailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('User Detail'),
+      ),
       body: Center(
         child: BlocBuilder<UserDetailCubit, UserDetailState>(
           builder: (context, state) {
@@ -39,8 +40,8 @@ class UserDetailView extends StatelessWidget {
                 return const UserDetailLoading();
               case UserDetailStatus.success:
                 return UserDetailLoaded(user: state.user);
-              default:
-                return Container();
+              case UserDetailStatus.failure:
+                return const UserDetailError();
             }
           },
         ),

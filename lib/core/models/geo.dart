@@ -32,6 +32,8 @@ class Geo extends Equatable {
         lng: lng ?? this.lng,
       );
 
+  String get coordinates => '($lat, $lng)';
+
   @override
   List<Object> get props => [lat, lng];
 }

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_testing/app.dart';
+import 'package:flutter_testing/core/repositories/repositories.dart';
 
 void main() {
   // Handles Flutter Errors
@@ -19,7 +20,9 @@ void main() {
   // Handles Dart Errors
   runZonedGuarded<void>(
     () {
-      runApp(const App());
+      runApp(App(
+        userRepository: UserRepository(),
+      ));
     },
     (error, stackTrace) {
       print('Caught Dart Error');

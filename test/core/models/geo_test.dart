@@ -108,5 +108,19 @@ void main() {
         },
       );
     });
+
+    group('coordinates', () {
+      test(
+        'should return correct coordinates',
+        () {
+          // ARRANGE
+          final expected = '(${geo.lat}, ${geo.lng})';
+          // ACT
+          final coordinates = geo.coordinates;
+          // ASSERT
+          expect(coordinates, equals(expected));
+        },
+      );
+    });
   });
 }

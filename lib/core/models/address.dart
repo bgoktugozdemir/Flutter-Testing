@@ -54,6 +54,8 @@ class Address extends Equatable {
         geo: geo ?? this.geo,
       );
 
+  String get fullAddress => '$street $suite $city $zipcode';
+
   @override
   List<Object> get props => [street, suite, city, zipcode, geo];
 }

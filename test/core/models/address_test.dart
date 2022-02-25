@@ -208,5 +208,20 @@ void main() {
         },
       );
     });
+
+    group('fullAddress', () {
+      test(
+        'should return correct address',
+        () {
+          // ARRANGE
+          final expected =
+              '${address.street} ${address.suite} ${address.city} ${address.zipcode}';
+          // ACT
+          final fullAddress = address.fullAddress;
+          // ASSERT
+          expect(fullAddress, equals(expected));
+        },
+      );
+    });
   });
 }

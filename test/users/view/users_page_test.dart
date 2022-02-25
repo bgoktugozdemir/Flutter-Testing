@@ -3,19 +3,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_testing/core/models/models.dart';
+import 'package:flutter_testing/core/repositories/repositories.dart';
 import 'package:flutter_testing/user_detail/user_detail.dart';
 import 'package:flutter_testing/users/logic/users_cubit.dart';
 import 'package:flutter_testing/users/users.dart';
 import 'package:mocktail/mocktail.dart';
 
+class MockUserRepository extends Mock implements UserRepository {}
+
 class MockUsersCubit extends MockCubit<UsersState> implements UsersCubit {}
 
 void main() {
   group('UsersPage', () {
+    late UserRepository userRepository;
+
+    setUp(() {
+      userRepository = MockUserRepository();
+    });
     testWidgets('renders UsersView', (tester) async {
+      when(() => userRepository.getUsers())
+          .thenAnswer((_) async => const [User.empty()]);
       await tester.pumpWidget(
-        const MaterialApp(
-          home: UsersPage(),
+        RepositoryProvider.value(
+          value: userRepository,
+          child: const MaterialApp(
+            home: UsersPage(),
+          ),
         ),
       );
 
@@ -80,9 +93,8 @@ void main() {
     testWidgets(
       'renders UsersEmpty when status is UsersStatus.initial',
       (tester) async {
-        // ARRANGE
         when(() => usersCubit.state).thenReturn(UsersState.initial());
-        // ACT
+
         await tester.pumpWidget(
           BlocProvider.value(
             value: usersCubit,
@@ -91,7 +103,7 @@ void main() {
             ),
           ),
         );
-        // ASSERT
+
         expect(find.byType(UsersEmpty), findsOneWidget);
       },
     );
@@ -99,11 +111,10 @@ void main() {
     testWidgets(
       'renders UsersLoading when status is UsersStatus.loading',
       (tester) async {
-        // ARRANGE
         when(() => usersCubit.state).thenReturn(
           const UsersState(status: UsersStatus.loading, users: []),
         );
-        // ACT
+
         await tester.pumpWidget(
           BlocProvider.value(
             value: usersCubit,
@@ -112,7 +123,7 @@ void main() {
             ),
           ),
         );
-        // ASSERT
+
         expect(find.byType(UsersLoading), findsOneWidget);
       },
     );
@@ -120,11 +131,10 @@ void main() {
     testWidgets(
       'renders UsersLoaded when status is UserStatus.success',
       (tester) async {
-        // ARRANGE
         when(() => usersCubit.state).thenReturn(
           const UsersState(status: UsersStatus.success, users: users),
         );
-        // ACT
+
         await tester.pumpWidget(
           BlocProvider.value(
             value: usersCubit,
@@ -133,7 +143,7 @@ void main() {
             ),
           ),
         );
-        // ASSERT
+
         expect(find.byType(UsersLoaded), findsOneWidget);
       },
     );
@@ -141,11 +151,10 @@ void main() {
     testWidgets(
       'renders UsersError when status is UserStatus.failure',
       (tester) async {
-        // ARRANGE
         when(() => usersCubit.state).thenReturn(
           const UsersState(status: UsersStatus.failure, users: []),
         );
-        // ACT
+
         await tester.pumpWidget(
           BlocProvider.value(
             value: usersCubit,
@@ -154,7 +163,7 @@ void main() {
             ),
           ),
         );
-        // ASSERT
+
         expect(find.byType(UsersError), findsOneWidget);
       },
     );
@@ -162,22 +171,27 @@ void main() {
     testWidgets(
       'navigates to UserDetailPage when tapped on user',
       (tester) async {
-        // ARRANGE
+        final UserRepository userRepository = MockUserRepository();
+        when(() => userRepository.getUser(any()))
+            .thenAnswer((_) async => const User.empty());
         when(() => usersCubit.state).thenReturn(
           const UsersState(status: UsersStatus.success, users: users),
         );
-        // ACT
+
         await tester.pumpWidget(
-          BlocProvider.value(
-            value: usersCubit,
-            child: const MaterialApp(
-              home: UsersView(),
+          RepositoryProvider.value(
+            value: userRepository,
+            child: BlocProvider.value(
+              value: usersCubit,
+              child: const MaterialApp(
+                home: UsersView(),
+              ),
             ),
           ),
         );
         await tester.tap(find.byType(ListTile).first);
         await tester.pumpAndSettle();
-        // ASSERT
+
         expect(find.byType(UserDetailPage), findsOneWidget);
       },
     );
@@ -185,12 +199,11 @@ void main() {
     testWidgets(
       'triggers refreshUsers on pull to refresh',
       (tester) async {
-        // ARRANGE
         when(() => usersCubit.state).thenReturn(
           const UsersState(status: UsersStatus.success, users: users),
         );
         when(() => usersCubit.refreshUsers()).thenAnswer((_) async => {});
-        // ACT
+
         await tester.pumpWidget(
           BlocProvider.value(
             value: usersCubit,
@@ -207,7 +220,7 @@ void main() {
         );
 
         await tester.pumpAndSettle();
-        // ASSERT
+
         verify(() => usersCubit.refreshUsers()).called(1);
       },
     );
