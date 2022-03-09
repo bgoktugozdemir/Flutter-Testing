@@ -10,7 +10,7 @@ class MockClient extends Mock implements Client {}
 class FakeUri extends Fake implements Uri {}
 
 void main() {
-  late MockClient client;
+  late Client client;
   late UserRepository userRepository;
 
   setUpAll(() {
