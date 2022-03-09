@@ -20,9 +20,11 @@ void main() {
   // Handles Dart Errors
   runZonedGuarded<void>(
     () {
-      runApp(App(
-        userRepository: UserRepository(),
-      ));
+      runApp(
+        App(
+          userRepository: UserRepository(),
+        ),
+      );
     },
     (error, stackTrace) {
       print('Caught Dart Error');
