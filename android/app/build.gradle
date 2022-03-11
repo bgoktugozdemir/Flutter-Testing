@@ -48,6 +48,7 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
     buildTypes {
@@ -65,4 +66,10 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    testImplementation "junit:junit:4.12"
+
+    // https://developer.android.com/jetpack/androidx/releases/test/#1.2.0
+    testImplementation "androidx.test.ext:junit:1.2.0"
+    testImplementation "androidx.test.espresso:espresso-core:3.2.0"
 }
