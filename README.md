@@ -1,17 +1,14 @@
-# flutter_testing
 ![Coverage](./coverage_badge.svg?sanitize=true)
+# Flutter Testing Demo Project
 
-A new Flutter project.
+You can see and try all the test methods in this app.
 
-## Getting Started
+All the useful shell scripts are shared.
 
-This project is a starting point for a Flutter application.
+## Medium Articles
+1. Unit Test
 
-A few resources to get you started if this is your first Flutter project:
+## Project Dependencies
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Flutter Version: 2.10.3 (Stable)
+Dart Version: 2.16.1
