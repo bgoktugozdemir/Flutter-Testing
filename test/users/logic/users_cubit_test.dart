@@ -105,7 +105,6 @@ void main() {
         ],
       );
     });
-
     group('refreshUsers', () {
       blocTest<UsersCubit, UsersState>(
         'emits nothing when status is not success',

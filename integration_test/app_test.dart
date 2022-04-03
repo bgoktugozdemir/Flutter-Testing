@@ -13,38 +13,6 @@ class MockUserRepository extends Mock implements UserRepository {}
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  Future<void> _test(
-    WidgetTester tester, {
-    UserRepository? userRepository,
-  }) async {
-    app.main(userRepository: userRepository);
-    await tester.pump();
-
-    expect(find.byType(UsersPage), findsOneWidget);
-
-    await tester.pumpAndSettle(const Duration(seconds: 2));
-
-    final firstUser = find.byType(ListTile).first;
-
-    expect(firstUser, findsOneWidget);
-
-    await tester.tap(firstUser);
-
-    await tester.pumpAndSettle();
-
-    expect(find.byType(UserDetailPage), findsOneWidget);
-    expect(find.byType(UsersPage), findsNothing);
-
-    final backButton = find.byTooltip('Back');
-
-    await tester.tap(backButton);
-
-    await tester.pumpAndSettle();
-
-    expect(find.byType(UsersPage), findsOneWidget);
-    expect(find.byType(UserDetailPage), findsNothing);
-  }
-
   group('Mock Data', () {
     const users = <User>[
       User(
@@ -94,24 +62,82 @@ void main() {
     setUpAll(() {
       userRepository = MockUserRepository();
     });
-    testWidgets(
-      'Loading -> Users -> Press First User -> Navigate to the User Detail Page -> Loading -> User Detail -> Press Back Button -> Navigate to the Users Page',
-      (tester) async {
-        when(() => userRepository.getUsers()).thenAnswer((_) async => users);
-        when(() => userRepository.getUser(any()))
-            .thenAnswer((_) async => users.first);
+    // testWidgets(
+    //   'Loading -> Users -> Press First User -> Navigate to the User Detail Page -> Loading -> User Detail -> Press Back Button -> Navigate to the Users Page',
+    //   (tester) async {
+    //     when(() => userRepository.getUsers()).thenAnswer((_) async => users);
+    //     when(() => userRepository.getUser(any()))
+    //         .thenAnswer((_) async => users.first);
 
-        await _test(tester, userRepository: userRepository);
+    //     await _test(tester, userRepository: userRepository);
+    //   },
+    // );
+
+    testWidgets(
+      'Loading -> User Detail -> Launch Email -> Launch Phone -> Launch Website',
+      (tester) async {
+        final user = users.first;
+        when(() => userRepository.getUser(any())).thenAnswer((_) async => user);
+
+        app.userDetail(
+          userRepository: userRepository,
+          userId: user.id,
+        );
+        await tester.pump();
+
+        expect(find.byType(UserDetailPage), findsOneWidget);
+
+        await tester.pumpAndSettle(const Duration(seconds: 2));
+
+        final email = find.text(user.email);
+
+        expect(email, findsOneWidget);
+
+        await tester.tap(email);
+        await tester.pumpAndSettle(const Duration(seconds: 5));
+        await tester.pageBack();
       },
     );
   });
 
-  group('Real Data', () {
-    testWidgets(
-      'Loading -> Users -> Press First User -> Navigate to the User Detail Page -> Loading -> User Detail -> Press Back Button -> Navigate to the Users Page',
-      (tester) async {
-        await _test(tester);
-      },
-    );
-  });
+  // group('Real Data', () {
+  //   testWidgets(
+  //     'Loading -> Users -> Press First User -> Navigate to the User Detail Page -> Loading -> User Detail -> Press Back Button -> Navigate to the Users Page',
+  //     (tester) async {
+  //       await _test(tester);
+  //     },
+  //   );
+  // });
+}
+
+Future<void> _test(
+  WidgetTester tester, {
+  UserRepository? userRepository,
+}) async {
+  app.main(userRepository: userRepository);
+  await tester.pump();
+
+  expect(find.byType(UsersPage), findsOneWidget);
+
+  await tester.pumpAndSettle(const Duration(seconds: 2));
+
+  final firstUser = find.byType(ListTile).first;
+
+  expect(firstUser, findsOneWidget);
+
+  await tester.tap(firstUser);
+
+  await tester.pumpAndSettle();
+
+  expect(find.byType(UserDetailPage), findsOneWidget);
+  expect(find.byType(UsersPage), findsNothing);
+
+  final backButton = find.byTooltip('Back');
+
+  await tester.tap(backButton);
+
+  await tester.pumpAndSettle();
+
+  expect(find.byType(UsersPage), findsOneWidget);
+  expect(find.byType(UserDetailPage), findsNothing);
 }

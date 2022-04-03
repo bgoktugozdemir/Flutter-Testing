@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_testing/core/models/models.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class UserDetailLoaded extends StatelessWidget {
   const UserDetailLoaded({
@@ -55,30 +54,12 @@ class Bio extends StatelessWidget {
         const SizedBox(height: 2),
         BioInfo(
           info: user.email,
-          onTap: () async {
-            final url = 'mailto:${user.email}';
-            if (await canLaunch(url)) {
-              await launch(url);
-            }
-          },
         ),
         BioInfo(
           info: user.phone,
-          onTap: () async {
-            final url = 'tel:+${user.phone}';
-            if (await canLaunch(url)) {
-              await launch(url);
-            }
-          },
         ),
         BioInfo(
           info: user.website,
-          onTap: () async {
-            final url = user.website;
-            if (await canLaunch(url)) {
-              await launch(url);
-            }
-          },
         ),
       ],
     );
