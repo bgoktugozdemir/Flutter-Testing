@@ -13,3 +13,6 @@ All the useful shell scripts are shared.
 
 Flutter Version: 2.10.3 (Stable)
 Dart Version: 2.16.1
+
+- [Introduction](https://medium.com/@bgoktugozdemir/0-introduction-testing-in-flutter-54cee436aaa9)
+- [Unit Test](https://medium.com/@bgoktugozdemir/unit-test-testing-in-flutter-5d257b6162fe)

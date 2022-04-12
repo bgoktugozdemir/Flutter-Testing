@@ -62,52 +62,26 @@ void main() {
     setUpAll(() {
       userRepository = MockUserRepository();
     });
-    // testWidgets(
-    //   'Loading -> Users -> Press First User -> Navigate to the User Detail Page -> Loading -> User Detail -> Press Back Button -> Navigate to the Users Page',
-    //   (tester) async {
-    //     when(() => userRepository.getUsers()).thenAnswer((_) async => users);
-    //     when(() => userRepository.getUser(any()))
-    //         .thenAnswer((_) async => users.first);
-
-    //     await _test(tester, userRepository: userRepository);
-    //   },
-    // );
-
     testWidgets(
-      'Loading -> User Detail -> Launch Email -> Launch Phone -> Launch Website',
+      'Loading -> Users -> Press First User -> Navigate to the User Detail Page -> Loading -> User Detail -> Press Back Button -> Navigate to the Users Page',
       (tester) async {
-        final user = users.first;
-        when(() => userRepository.getUser(any())).thenAnswer((_) async => user);
+        when(() => userRepository.getUsers()).thenAnswer((_) async => users);
+        when(() => userRepository.getUser(any()))
+            .thenAnswer((_) async => users.first);
 
-        app.userDetail(
-          userRepository: userRepository,
-          userId: user.id,
-        );
-        await tester.pump();
-
-        expect(find.byType(UserDetailPage), findsOneWidget);
-
-        await tester.pumpAndSettle(const Duration(seconds: 2));
-
-        final email = find.text(user.email);
-
-        expect(email, findsOneWidget);
-
-        await tester.tap(email);
-        await tester.pumpAndSettle(const Duration(seconds: 5));
-        await tester.pageBack();
+        await _test(tester, userRepository: userRepository);
       },
     );
   });
 
-  // group('Real Data', () {
-  //   testWidgets(
-  //     'Loading -> Users -> Press First User -> Navigate to the User Detail Page -> Loading -> User Detail -> Press Back Button -> Navigate to the Users Page',
-  //     (tester) async {
-  //       await _test(tester);
-  //     },
-  //   );
-  // });
+  group('Real Data', () {
+    testWidgets(
+      'Loading -> Users -> Press First User -> Navigate to the User Detail Page -> Loading -> User Detail -> Press Back Button -> Navigate to the Users Page',
+      (tester) async {
+        await _test(tester);
+      },
+    );
+  });
 }
 
 Future<void> _test(
