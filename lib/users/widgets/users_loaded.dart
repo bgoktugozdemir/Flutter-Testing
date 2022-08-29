@@ -4,10 +4,10 @@ import 'package:flutter_testing/user_detail/user_detail.dart';
 
 class UsersLoaded extends StatelessWidget {
   const UsersLoaded({
-    Key? key,
+    super.key,
     required this.users,
     required this.onRefresh,
-  }) : super(key: key);
+  });
 
   final List<User> users;
   final ValueGetter<Future<void>> onRefresh;

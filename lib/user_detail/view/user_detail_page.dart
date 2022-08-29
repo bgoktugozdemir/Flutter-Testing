@@ -5,9 +5,9 @@ import 'package:flutter_testing/user_detail/user_detail.dart';
 
 class UserDetailPage extends StatelessWidget {
   const UserDetailPage({
-    Key? key,
+    super.key,
     required this.userId,
-  }) : super(key: key);
+  });
 
   final int userId;
 
@@ -22,7 +22,7 @@ class UserDetailPage extends StatelessWidget {
 }
 
 class UserDetailView extends StatelessWidget {
-  const UserDetailView({Key? key}) : super(key: key);
+  const UserDetailView({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -5,7 +5,7 @@ import 'package:flutter_testing/users/logic/users_cubit.dart';
 import 'package:flutter_testing/users/users.dart';
 
 class UsersPage extends StatelessWidget {
-  const UsersPage({Key? key}) : super(key: key);
+  const UsersPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class UsersPage extends StatelessWidget {
 }
 
 class UsersView extends StatelessWidget {
-  const UsersView({Key? key}) : super(key: key);
+  const UsersView({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -4,9 +4,8 @@ import 'package:flutter_testing/core/repositories/repositories.dart';
 import 'package:flutter_testing/users/users.dart';
 
 class App extends StatelessWidget {
-  const App({Key? key, required UserRepository userRepository})
-      : _userRepository = userRepository,
-        super(key: key);
+  const App({super.key, required UserRepository userRepository})
+      : _userRepository = userRepository;
 
   final UserRepository _userRepository;
 
@@ -20,7 +19,7 @@ class App extends StatelessWidget {
 }
 
 class AppView extends StatelessWidget {
-  const AppView({Key? key}) : super(key: key);
+  const AppView({super.key});
 
   @override
   Widget build(BuildContext context) {

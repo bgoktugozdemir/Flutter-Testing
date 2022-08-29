@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class ErrorView extends StatelessWidget {
   const ErrorView({
-    Key? key,
+    super.key,
     this.message = 'Something went wrong!',
-  }) : super(key: key);
+  });
 
   final String message;
 

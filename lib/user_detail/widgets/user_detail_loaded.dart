@@ -3,9 +3,9 @@ import 'package:flutter_testing/core/models/models.dart';
 
 class UserDetailLoaded extends StatelessWidget {
   const UserDetailLoaded({
-    Key? key,
+    super.key,
     required this.user,
-  }) : super(key: key);
+  });
 
   final User user;
 
@@ -24,7 +24,7 @@ class UserDetailLoaded extends StatelessWidget {
 
 @visibleForTesting
 class Bio extends StatelessWidget {
-  const Bio({Key? key, required this.user}) : super(key: key);
+  const Bio({super.key, required this.user});
 
   final User user;
 
@@ -69,11 +69,11 @@ class Bio extends StatelessWidget {
 @visibleForTesting
 class BioInfo extends StatelessWidget {
   const BioInfo({
-    Key? key,
+    super.key,
     required this.info,
     this.style,
     this.onTap,
-  }) : super(key: key);
+  });
 
   final String info;
   final TextStyle? style;
@@ -97,7 +97,7 @@ class BioInfo extends StatelessWidget {
 
 @visibleForTesting
 class AddressSection extends StatelessWidget {
-  const AddressSection({Key? key, required this.address}) : super(key: key);
+  const AddressSection({super.key, required this.address});
 
   final Address address;
 
@@ -116,7 +116,7 @@ class AddressSection extends StatelessWidget {
 
 @visibleForTesting
 class CompanySection extends StatelessWidget {
-  const CompanySection({Key? key, required this.company}) : super(key: key);
+  const CompanySection({super.key, required this.company});
 
   final Company company;
 
@@ -135,7 +135,7 @@ class CompanySection extends StatelessWidget {
 
 @visibleForTesting
 class SectionHeader extends StatelessWidget {
-  const SectionHeader(this.header, {Key? key}) : super(key: key);
+  const SectionHeader(this.header, {super.key});
 
   final String header;
 
@@ -161,11 +161,10 @@ class SectionHeader extends StatelessWidget {
 @visibleForTesting
 class UserInfoBar extends StatelessWidget {
   const UserInfoBar({
-    Key? key,
+    super.key,
     required this.title,
     required this.info,
-  })  : assert(info != null),
-        super(key: key);
+  })  : assert(info != null);
 
   final String title;
   final dynamic info;

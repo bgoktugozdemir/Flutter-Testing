@@ -27,7 +27,7 @@ void main() {
       );
     },
     (error, stackTrace) {
-      print('Caught Dart Error');
+      debugPrint('Caught Dart Error');
 
       if (kDebugMode) {
         // In development, print [error] and [stackTrace].
