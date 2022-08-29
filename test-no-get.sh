@@ -6,7 +6,7 @@ echo "\033[0;33m##### Tests are running and the test coverage is generating... #
 flutter test --update-goldens --coverage
 
 echo "\033[0;33m##### Generated files is dismissing... #####\033[0m"
-lcov --remove coverage/lcov.info 'lib/*/*.freezed.dart' 'lib/*/.g.dart' 'lib/*/*.part.dart' 'lib/generated/*.dart' 'lib/*/*.chopper.dart' -o coverage/lcov.info
+lcov --remove coverage/lcov.info 'lib/*/*.freezed.dart' 'lib/*/*.config.dart' 'lib/*/.g.dart' 'lib/*/*.part.dart' 'lib/generated/*.dart' 'lib/*/*.chopper.dart' -o coverage/lcov.info
 
 echo "\033[0;33m##### Test coverage badge is generating... #####\033[0m"
 flutter pub run test_coverage_badge
