@@ -11,8 +11,18 @@ All the useful shell scripts are shared.
 
 ## Project Dependencies
 
-Flutter Version: 2.10.3 (Stable)
-Dart Version: 2.16.1
+Flutter Version: 3.0.5 (Stable)
+Dart Version: 2.17.5
 
 - [Introduction](https://medium.com/@bgoktugozdemir/0-introduction-testing-in-flutter-54cee436aaa9)
 - [Unit Test](https://medium.com/@bgoktugozdemir/unit-test-testing-in-flutter-5d257b6162fe)
+
+## Running Tests
+
+If you want to update the Golden Tests, you can run the code below.
+
+```bash
+flutter test --update-goldens --tags=golden
+```
+
+> Do not forget that sometimes Golden Images can be depended on OS. Try to update goldens first.

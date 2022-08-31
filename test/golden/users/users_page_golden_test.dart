@@ -92,6 +92,7 @@ void main() {
 
         await tester.pumpAndSettle();
       },
+      tags: ['golden'],
     );
 
     testGoldens(
@@ -109,6 +110,7 @@ void main() {
 
         await screenMatchesGolden(tester, 'users_page_loaded');
       },
+      tags: ['golden'],
     );
 
     testGoldens(
@@ -126,6 +128,7 @@ void main() {
 
         await screenMatchesGolden(tester, 'users_page_error');
       },
+      tags: ['golden'],
     );
   });
 }

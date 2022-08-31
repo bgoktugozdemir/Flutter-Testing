@@ -59,6 +59,7 @@ void main() {
 
         await screenMatchesGolden(tester, 'user_detail_page_loaded');
       },
+      tags: ['golden'],
     );
 
     testGoldens(
@@ -76,6 +77,7 @@ void main() {
 
         await screenMatchesGolden(tester, 'user_detail_page_error');
       },
+      tags: ['golden'],
     );
   });
 }
