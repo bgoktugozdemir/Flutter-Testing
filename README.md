@@ -25,4 +25,4 @@ If you want to update the Golden Tests, you can run the code below.
 flutter test --update-goldens --tags=golden
 ```
 
-> Do not forget that sometimes Golden Images can be depended on OS. Try to update goldens first.
+> Do not forget that sometimes Golden Images can be dependent on OS. Try to update goldens first.
