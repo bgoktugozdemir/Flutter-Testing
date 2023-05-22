@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_testing/core/models/models.dart';
-import 'package:flutter_testing/users/users.dart';
+
+import '../users_robot.dart';
 
 void main() {
   group('UsersLoaded', () {
@@ -49,19 +50,15 @@ void main() {
     ];
 
     testWidgets('renders correct amount of ListTile', (tester) async {
+      final robot = UsersRobot(tester);
       final key = UniqueKey();
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: UsersLoaded(
-              key: key,
-              users: users,
-              onRefresh: () async {},
-            ),
-          ),
-        ),
+      await robot.pumpLoadedWidget(
+        key: key,
+        users: users,
+        onRefresh: () async {},
       );
+
       expect(find.byKey(key), findsOneWidget);
       expect(find.byType(ListTile), findsNWidgets(users.length));
       final user1 = users[0];
@@ -73,22 +70,12 @@ void main() {
     });
 
     testWidgets('renders correct user details', (tester) async {
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: UsersLoaded(
-            users: users,
-            onRefresh: () async {},
-          ),
-        ),
-      ));
-      final user1 = users[0];
-      expect(find.widgetWithText(CircleAvatar, '${user1.id}'), findsOneWidget);
-      expect(find.widgetWithText(ListTile, user1.name), findsOneWidget);
-      expect(find.widgetWithText(ListTile, user1.username), findsOneWidget);
-      final user2 = users[1];
-      expect(find.widgetWithText(CircleAvatar, '${user2.id}'), findsOneWidget);
-      expect(find.widgetWithText(ListTile, user2.name), findsOneWidget);
-      expect(find.widgetWithText(ListTile, user2.username), findsOneWidget);
+      final robot = UsersRobot(tester);
+
+      await robot.pumpLoadedWidget(users: users, onRefresh: () async {});
+
+      robot.expectUserDetailFound(users[0]);
+      robot.expectUserDetailFound(users[1]);
     });
   });
 }

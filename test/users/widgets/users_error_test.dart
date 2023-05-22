@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_testing/core/widgets/widgets.dart';
-import 'package:flutter_testing/users/users.dart';
+
+import '../users_robot.dart';
 
 void main() {
   group('UsersError', () {
     testWidgets('renders ErrorView', (tester) async {
+      final robot = UsersRobot(tester);
       final key = UniqueKey();
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: UsersError(key: key),
-          ),
-        ),
-      );
+      await robot.pumpErrorWidget(key: key);
 
-      expect(find.byKey(key), findsOneWidget);
-      expect(find.byType(ErrorView), findsOneWidget);
+      robot.expectKeyFound(key);
+      robot.expectTypeFound(ErrorView);
     });
   });
 }

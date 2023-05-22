@@ -4,6 +4,8 @@ import 'package:flutter_testing/core/models/models.dart';
 import 'package:flutter_testing/user_detail/widgets/widgets.dart';
 import 'package:mocktail/mocktail.dart';
 
+import '../user_detail_robot.dart';
+
 class MockOnTap extends Mock {
   void call();
 }
@@ -32,15 +34,10 @@ void main() {
     );
 
     testWidgets('renders correct user details', (tester) async {
+      final robot = UserDetailRobot(tester);
       final key = UniqueKey();
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: UserDetailLoaded(key: key, user: user),
-          ),
-        ),
-      );
+      await robot.pumpLoadedWidget(key: key, user: user);
 
       expect(find.byKey(key), findsOneWidget);
       expect(find.byType(Bio), findsOneWidget);
@@ -50,14 +47,11 @@ void main() {
       testWidgets(
         "renders correct widgets",
         (WidgetTester tester) async {
-          await tester.pumpWidget(
-            const MaterialApp(
-              home: Scaffold(
-                body: Bio(user: user),
-              ),
-            ),
-          );
+          final robot = UserDetailRobot(tester);
 
+          await robot.pumpApp(
+            body: const Bio(user: user),
+          );
           expect(
             find.widgetWithText(CircleAvatar, '${user.id}'),
             findsOneWidget,
@@ -90,13 +84,11 @@ void main() {
       );
 
       testWidgets('runs onTap method when it is called', (tester) async {
+        final robot = UserDetailRobot(tester);
         final onTap = MockOnTap();
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: BioInfo(info: 'Test', onTap: onTap),
-            ),
-          ),
+
+        await robot.pumpApp(
+          body: BioInfo(info: 'Test', onTap: onTap),
         );
 
         final bioInfo = find.byType(BioInfo);
@@ -113,12 +105,10 @@ void main() {
       testWidgets(
         "renders correct widgets",
         (WidgetTester tester) async {
-          await tester.pumpWidget(
-            MaterialApp(
-              home: Scaffold(
-                body: AddressSection(address: user.address),
-              ),
-            ),
+          final robot = UserDetailRobot(tester);
+
+          await robot.pumpApp(
+            body: AddressSection(address: user.address),
           );
 
           expect(find.widgetWithText(SectionHeader, 'Address'), findsOneWidget);
@@ -139,12 +129,10 @@ void main() {
       testWidgets(
         "renders correct widgets",
         (WidgetTester tester) async {
-          await tester.pumpWidget(
-            MaterialApp(
-              home: Scaffold(
-                body: CompanySection(company: user.company),
-              ),
-            ),
+          final robot = UserDetailRobot(tester);
+
+          await robot.pumpApp(
+            body: CompanySection(company: user.company),
           );
 
           expect(find.widgetWithText(SectionHeader, 'Company'), findsOneWidget);
